@@ -1,5 +1,6 @@
 package fr.pages.todolist.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +18,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     /* Create a list of Todo. */
     private val listTodo = TodoSource.createDataSet()
+    /* Used for send the title to the second activity*/
+    val TITLE_TODO = "title"
+    /* Used for send the title to the second activity*/
+    val DESCRIPTION_TODO = "description"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             setHasFixedSize(true)
             val mAdapter = AdapterTodoList(listTodo)
             mAdapter.setOnTodoClickListener(object : TodoClickListener {
-                override fun onTodoClickListener(position: Int, todo: Todo) {
+                override fun onTodoCheckBoxListener(position: Int, todo: Todo) {
                     /* Changes the item position. */
                     if (todo.state) {
                         listTodo.removeAt(position)
@@ -46,6 +51,14 @@ class MainActivity : AppCompatActivity() {
                         listTodo.add(todo)
                         adapter?.notifyItemMoved(position,0)
                     }
+                }
+
+                override fun onTodoClickListener(position: Int, todo: Todo) {
+                    val intent = Intent(applicationContext, TodoDescriptionActivity::class.java).apply {
+                        putExtra(TITLE_TODO, todo.title)
+                        putExtra(DESCRIPTION_TODO,todo.description)
+                    }
+                    startActivity(intent)
                 }
             })
             adapter = mAdapter

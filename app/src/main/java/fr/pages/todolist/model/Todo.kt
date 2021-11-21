@@ -6,4 +6,4 @@ package fr.pages.todolist.model
  * @param title name of the todo.
  * @param state true to be done, false it's done.
  */
-data class Todo (val title : String, val state : Boolean)
+data class Todo (val title : String, val description : String, val state : Boolean)

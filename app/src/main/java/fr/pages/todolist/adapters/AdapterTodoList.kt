@@ -71,20 +71,26 @@ class AdapterTodoList(arrayTodo: ArrayList<Todo>) : RecyclerView.Adapter<Recycle
     class TodoListViewHolder(itemView : View, todoListener: TodoClickListener) : RecyclerView.ViewHolder(itemView) {
         private val nameTodo = itemView.name_event_list
         private val checkBoxTodo = itemView.checkox_todo
+        private lateinit var descriptionTodo : String
 
         init{
             itemView.checkox_todo.setOnCheckedChangeListener { buttonView, isChecked ->
-                todoListener.onTodoClickListener(adapterPosition, Todo(nameTodo.text as String,isChecked))
+                todoListener.onTodoCheckBoxListener(adapterPosition, Todo(nameTodo.text as String,descriptionTodo, isChecked))
+            }
+            itemView.name_event_list.setOnClickListener {
+                todoListener.onTodoClickListener(adapterPosition,
+                    Todo(nameTodo.text as String, descriptionTodo, checkBoxTodo.isChecked))
             }
         }
         fun bind(todo: Todo) {
             nameTodo.text = todo.title
             checkBoxTodo.isChecked = todo.state
+            descriptionTodo = todo.description
             checkBoxTodo.setOnClickListener {
                 if (checkBoxTodo.isChecked) {
                     nameTodo.paintFlags = nameTodo.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                 } else {
-                        nameTodo.paintFlags = 0
+                    nameTodo.paintFlags = 0
                     }
                 }
             }
