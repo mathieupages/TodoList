@@ -32,7 +32,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_todo"
         android:layout_width="match_parent"
-        android:layout_height="655dp" />
+        android:layout_height="719dp"
+        android:layout_gravity="bottom|end" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
