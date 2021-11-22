@@ -10,4 +10,15 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="todo">Todo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_create_todo_fragment">Création TODO</string>
+    <string name="title_todo_create_todo_fragment">Titre du Todo</string>
+    <string name="description_todo_create_todo_fragment">Description du Todo</string>
+    <string name="valider">Valider</string>
+    <string name="message_validation_create_todo_fragment">"Etes-vous sûre de la création du Todo ? "</string>
+    <string name="annuler">Annuler</string>
+    <string name="title_is_required">Le titre est requis</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
 </resources>

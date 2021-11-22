@@ -35,5 +35,11 @@
         android:layout_height="719dp"
         android:layout_gravity="bottom|end" />
 
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/create_todo_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

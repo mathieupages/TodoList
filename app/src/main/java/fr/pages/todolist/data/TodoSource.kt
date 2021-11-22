@@ -1,18 +1,24 @@
 package fr.pages.todolist.data
 
 import fr.pages.todolist.model.Todo
+import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 /**
- *  Todo Data
+ *  Todo Data class
 */
 class TodoSource {
-
     companion object{
 
+        /* list of Todo. */
+        val list = ArrayList<Todo>()
+
+        /**
+         * Create a list of Todo.
+         */
         fun createDataSet() : ArrayList<Todo> {
 
-            val list = ArrayList<Todo>()
+
             list.add(
                 Todo("Faire le todo","Faire le todo pour pouvoir passer l'entretien technique et essayer de faire bonne impression",false)
             )
@@ -29,6 +35,20 @@ class TodoSource {
                 Todo("Faire les courses","Faire les courses pour faire des cookies",false)
             )
 
+            return list
+        }
+
+        /**
+         * Add an element.
+         */
+        fun addTodo(todo : Todo){
+            list.add(todo)
+        }
+
+        /**
+         * Get the list of Todo.
+         */
+        fun getListTodo(): ArrayList<Todo>{
             return list
         }
     }

@@ -74,7 +74,7 @@ class AdapterTodoList(arrayTodo: ArrayList<Todo>) : RecyclerView.Adapter<Recycle
         private lateinit var descriptionTodo : String
 
         init{
-            itemView.checkox_todo.setOnCheckedChangeListener { buttonView, isChecked ->
+            itemView.checkox_todo.setOnCheckedChangeListener { _, isChecked ->
                 todoListener.onTodoCheckBoxListener(adapterPosition, Todo(nameTodo.text as String,descriptionTodo, isChecked))
             }
             itemView.name_event_list.setOnClickListener {

@@ -2,26 +2,29 @@ package fr.pages.todolist.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
+import fr.pages.todolist.R
+import fr.pages.todolist.TodoClickListener
 import fr.pages.todolist.adapters.AdapterTodoList
 import fr.pages.todolist.data.TodoSource
 import fr.pages.todolist.databinding.ActivityMainBinding
+import fr.pages.todolist.fragment.CreateTodoFragment
 import fr.pages.todolist.model.Todo
 import kotlinx.android.synthetic.main.activity_main.*
-import fr.pages.todolist.TodoClickListener
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     /* Create a list of Todo. */
-    private val listTodo = TodoSource.createDataSet()
+    var listTodo = TodoSource.createDataSet()
     /* Used for send the title to the second activity*/
-    val TITLE_TODO = "title"
+    private val TITLE_TODO = "title"
     /* Used for send the title to the second activity*/
-    val DESCRIPTION_TODO = "description"
+    private val DESCRIPTION_TODO = "description"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +33,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        binding.addTodo.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+
+
+        binding.addTodo.setOnClickListener {
+            create_todo_container.visibility = View.VISIBLE
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.create_todo_container, CreateTodoFragment.newInstance())
+                commit()
+            }
+            listTodo.clear()
+            listTodo = TodoSource.getListTodo()
+            list_todo.adapter?.notifyDataSetChanged()
         }
 
         list_todo.apply{
@@ -49,15 +60,16 @@ class MainActivity : AppCompatActivity() {
                     } else {
                         listTodo.removeAt(position)
                         listTodo.add(todo)
-                        adapter?.notifyItemMoved(position,0)
+                        adapter?.notifyItemMoved(position, 0)
                     }
                 }
 
                 override fun onTodoClickListener(position: Int, todo: Todo) {
-                    val intent = Intent(applicationContext, TodoDescriptionActivity::class.java).apply {
-                        putExtra(TITLE_TODO, todo.title)
-                        putExtra(DESCRIPTION_TODO,todo.description)
-                    }
+                    val intent =
+                        Intent(applicationContext, TodoDescriptionActivity::class.java).apply {
+                            putExtra(TITLE_TODO, todo.title)
+                            putExtra(DESCRIPTION_TODO, todo.description)
+                        }
                     startActivity(intent)
                 }
             })
